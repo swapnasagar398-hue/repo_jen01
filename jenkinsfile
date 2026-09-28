@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment{
+        PYTHON='C:\\Program Files\\Python314\\python.exe'
+
+    }
     stages{
         stage('checkout code'){
         steps{
@@ -8,12 +12,12 @@ pipeline {
     }
         stage('show python version'){
             steps{
-                bat python --version
+                bat "${env.PYTHON} --version"
             }
         }
        stage('run extract_data.py'){
             steps{
-                bat python extract_data.py
+                bat "${env.PYTHON } extract_data.py"
             }
 
 }   }   }
