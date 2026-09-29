@@ -1,8 +1,16 @@
 import pandas as pd
-data={
-    "name":["ram","sham"],
-    "age":[25,56],
-    "address":["pune","mumbai"]
+
+print("Extract Data")
+
+# Sample data
+data = {
+    'Id': [101, 102, 103],
+    'Name': ['Ram', 'Raj', 'Raja'],
+    'Age': [29, 34, 42]
 }
-df=pd.DataFrame(data)
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Display the DataFrame
 print(df)
