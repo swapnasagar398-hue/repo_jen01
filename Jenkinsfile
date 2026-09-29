@@ -1,33 +1,20 @@
-pipeline {
-    agent any
 
-    environment {
-        PYTHON = 'C:\\Users\\HP\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe'
-    }
+node {
+    def PYTHON = 'C:\\Users\\HP\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe'
 
-    stages {
+    try {
         stage('Checkout') {
-            steps {
-                checkout scm
-            }
+            checkout scm
         }
 
-        stage('Setup Python') {
-            steps {
-                bat "${env.PYTHON} --version"
-            }
+        stage('Extract Data') {
+            bat "${PYTHON} extract.py"
         }
 
-        stage('Extract') {
-            steps {
-                bat "${env.PYTHON} extract.py"
-            }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline completed.'
-        }
+    } catch (err) {
+        echo "Pipeline failed: ${err}"
+        currentBuild.result = 'FAILURE'
+    } finally {
+        echo 'Pipeline completed.'
     }
 }
